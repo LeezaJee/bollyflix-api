@@ -1,2 +1,0 @@
-//text file to log recent requests made to my server
-//it can be used to debug the code or track the most visited URLs
