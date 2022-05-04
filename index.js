@@ -1,4 +1,5 @@
 const express = require("express");
+morgan = require("morgan");
 const app = express();
 
 let movies = [
@@ -141,6 +142,9 @@ let movies = [
       "https://img.goldposter.com/2020/03/veer-zaara_poster_goldposter_com_1.jpg",
   },
 ];
+
+app.use(morgan("common")); //add morgan middlewar library
+
 app.get("/", (req, res) => {
   res.send(
     "Welcome to BollyFlix! Your go-to address for good Bollywood movies!"
