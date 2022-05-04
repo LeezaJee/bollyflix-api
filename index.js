@@ -141,6 +141,9 @@ let movies = [
       "https://img.goldposter.com/2020/03/veer-zaara_poster_goldposter_com_1.jpg",
   },
 ];
+app.get("/movies", (req, res) => {
+  res.status(200).json(movies);
+});
 app.listen(8080, () => {
   console.log("Your app is listening on port 8080");
 });
