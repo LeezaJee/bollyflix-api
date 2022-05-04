@@ -154,6 +154,9 @@ app.get("/documentation", (req, res) => {
 app.get("/movies", (req, res) => {
   res.status(200).json(movies);
 });
+
+app.use(express.static("public")); //serves “documentation.html” file from the public folder
+
 app.listen(8080, () => {
   console.log("Your app is listening on port 8080");
 });
