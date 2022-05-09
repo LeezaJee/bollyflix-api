@@ -265,6 +265,13 @@ app.get("/movies/actors/:actorName", (req, res) => {
   }
 });
 
+//---------------------USER CODE--------------------
+
+//READ - returns a list of all users
+app.get("/users", (req, res) => {
+  res.status(200).json(users);
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
