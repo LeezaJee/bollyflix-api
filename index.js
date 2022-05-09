@@ -223,6 +223,21 @@ app.get("/movies/:title", (req, res) => {
     res.status(400).send("There is no such movie.");
   }
 });
+
+//READ - returns movies by genre name
+app.get("/movies/genres/:genreName", (req, res) => {
+  const { genreName } = req.params; // syntax object destructuring === const title = req.params.title;
+  const genreMovies = movies.filter((movie) =>
+    movie.Genres.includes(genreName)
+  );
+
+  if (genreMovies) {
+    res.status(200).json(genreMovies);
+  } else {
+    res.status(400).send("There is no such genre.");
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
