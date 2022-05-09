@@ -8,6 +8,18 @@ app.use(bodyParser.json());
 app.use(morgan("common")); //adds morgan middleware library
 app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
+let users = [
+  {
+    Id: 1,
+    Name: "Mandy",
+    favoriteMovies: [],
+  },
+  {
+    Id: 2,
+    Name: "John",
+    favoriteMovies: ["PINK"],
+  },
+];
 
 let movies = [
   {
