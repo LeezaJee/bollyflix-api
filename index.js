@@ -193,22 +193,36 @@ let movies = [
   },
 ];
 
+//---------------------MOVIE CODE--------------------
 
+//READ - returns a plain welcome page
 app.get("/", (req, res) => {
   res.send(
     "Welcome to BollyFlix! Your go-to address for good Bollywood movies!"
   );
 });
 
+//READ - returns the documentation.html file
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
 });
 
+//READ - return a list of ALL movies to the user
 app.get("/movies", (req, res) => {
   res.status(200).json(movies);
 });
 
+//READ - returns data about a single movie by title
+app.get("/movies/:title", (req, res) => {
+  const { title } = req.params; // syntax object destructuring === const title = req.params.title;
+  const movie = movies.find((movie) => movie.Title === title); //find method to return movie object
 
+  if (movie) {
+    res.status(200).json(movie);
+  } else {
+    res.status(400).send("There is no such movie.");
+  }
+});
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
