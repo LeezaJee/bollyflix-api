@@ -316,6 +316,24 @@ app.post("/users/:id/:movieTitle", (req, res) => {
   }
 });
 
+//DELETE - allows users to remove a movie from their list of favorites
+app.delete("/users/:id/:movieTitle", (req, res) => {
+  const { id, movieTitle } = req.params;
+
+  let user = users.find((user) => user.Id == id);
+
+  if (user) {
+    user.favoriteMovies = user.favoriteMovies.filter(
+      (title) => title !== movieTitle
+    );
+    res
+      .status(200)
+      .send(`${movieTitle} has been removed from ${user.Name}'s array.`);
+  } else {
+    res.status(400).send(`${movieTitle} could not be deleted.`);
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
