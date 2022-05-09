@@ -334,6 +334,21 @@ app.delete("/users/:id/:movieTitle", (req, res) => {
   }
 });
 
+//DELETE - allows existing users to deregister
+app.delete("/users/:id", (req, res) => {
+  const { id } = req.params;
+
+  let user = users.find((user) => user.Id == id);
+
+  if (user) {
+    users = users.filter((user) => user.Id != id);
+    res.status(200).send(`User ${id} has been deleted`);
+  } else {
+    res.status(400).send(`There is no such user.`);
+  }
+});
+
+//error-handling middleware function
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
