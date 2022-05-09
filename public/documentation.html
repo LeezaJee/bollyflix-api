@@ -1,20 +1,135 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BollyFlix App</title>
+    <title>BollyFlix Documentation</title>
+    <link rel="stylesheet" href="https://stackedit.io/style.css" />
   </head>
 
-  <body>
-    <h1>BollyFlix App</h1>
-    <h2>Movie Web Application</h2>
-    <p>
-      BollyFlix is a web application that will grant users access to information
-      about various Bollywood movies, directors, and genres. <br />
-      The user will be able to use the BollyFlix application whenever they like
-      to read information about different movies or update their user
-      information, for instance, their list of favorite movies.
-    </p>
+  <body class="stackedit">
+    <div class="stackedit__html">
+      <h1 id="documentation-page">BollyFlix Documentation</h1>
+      <h2 id="objective">Objective</h2>
+      <p>
+        Creation of the server-side component of a “movies” web application
+        specialized in <strong>Bollywood movies</strong>.
+      </p>
+      <p>
+        The web application will provide users with access to information about
+        different <u>movies, directors, actors and genres</u>. User will also be
+        able to sign up, update their personal information, add movies to their
+        favorites list and remove their account if they wish to.
+      </p>
+      <h2 id="requests">REQUESTS</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>Method</th>
+            <th>Request Data Format</th>
+            <th>Response Data Format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>get list of all movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON object with information about all movies</td>
+          </tr>
+          <tr>
+            <td>get movie by title</td>
+            <td>/movies/:title</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON object with information about a specific movie</td>
+          </tr>
+          <tr>
+            <td>get movies by genre</td>
+            <td>/movies/genres/:genreName</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON object with movies according to requested genre</td>
+          </tr>
+          <tr>
+            <td>get directors info</td>
+            <td>/movies/directors/:directorName</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON object with information about a movie director</td>
+          </tr>
+          <tr>
+            <td>get movies by actor</td>
+            <td>/movies/actors/:actorName</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON object with movies according to actor's name</td>
+          </tr>
+          <tr>
+            <td>get all users</td>
+            <td>/users</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON object with information about all users</td>
+          </tr>
+          <tr>
+            <td>create a new user</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>
+              JSON object with info about a new user:
+              <code>{ "name": "Harry", "favoriteMovies": "Badla"}</code>
+            </td>
+            <td>
+              JSON object with user info and ID:
+              <code
+                >{"name": "Harry", "favoriteMovies": "Badla", "Id":
+                "1da28a33-b4d2-43af-9385-6546f306f448"}</code
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>update user info</td>
+            <td>/users/:id</td>
+            <td>PUT</td>
+            <td>
+              JSON object containing all required fields like:
+              <code>{"name": "new Name", "favoriteMovies": "Mimi"}</code>
+            </td>
+            <td>JSON object with updated user information</td>
+          </tr>
+          <tr>
+            <td>add a movie to favorites</td>
+            <td>/users/:id/:movieTitle</td>
+            <td>POST</td>
+            <td>none</td>
+            <td>success that movie has been added or error message if not</td>
+          </tr>
+          <tr>
+            <td>delete movie from favorites</td>
+            <td>/users/:id/:movieTitle</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>
+              success message that movie has been removed from favorites or
+              error message
+            </td>
+          </tr>
+          <tr>
+            <td>delete a user</td>
+            <td>/users/:id</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>
+              success message that user has been removed or error message if not
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>
