@@ -300,6 +300,22 @@ app.put("/users/:id", (req, res) => {
   }
 });
 
+//CREATE - allows users to add a movie to their list of favorites
+app.post("/users/:id/:movieTitle", (req, res) => {
+  const { id, movieTitle } = req.params;
+
+  let user = users.find((user) => user.Id == id);
+
+  if (user) {
+    user.favoriteMovies.push(movieTitle);
+    res
+      .status(200)
+      .send(`${movieTitle} has been added to ${user.Name}'s array.`);
+  } else {
+    res.status(400).send(`${movieTitle} could not be added.`);
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
