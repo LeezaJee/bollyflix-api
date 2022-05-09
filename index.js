@@ -1,6 +1,13 @@
 const express = require("express");
+app = express();
 morgan = require("morgan");
-const app = express();
+bodyParser = require("body-parser");
+uuid = require("uuid");
+
+app.use(bodyParser.json());
+app.use(morgan("common")); //adds morgan middleware library
+app.use(express.static("public")); //serves “documentation.html” file from the public folder
+
 
 let movies = [
   {
@@ -143,7 +150,6 @@ let movies = [
   },
 ];
 
-app.use(morgan("common")); //add morgan middlewar library
 
 app.get("/", (req, res) => {
   res.send(
@@ -159,7 +165,6 @@ app.get("/movies", (req, res) => {
   res.status(200).json(movies);
 });
 
-app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
