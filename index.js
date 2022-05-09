@@ -285,6 +285,21 @@ app.post("/users", (req, res) => {
   }
 });
 
+//UPDATE - allows users to update their user info (username)
+app.put("/users/:id", (req, res) => {
+  const { id } = req.params;
+  const updatedUser = req.body;
+
+  let user = users.find((user) => user.Id == id);
+
+  if (user) {
+    user.name = updatedUser.name;
+    res.status(200).json(user);
+  } else {
+    res.status(400).send("There is no such user.");
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
