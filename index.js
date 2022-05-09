@@ -238,6 +238,21 @@ app.get("/movies/genres/:genreName", (req, res) => {
   }
 });
 
+//READ - returns data about a director by name
+app.get("/movies/directors/:directorName", (req, res) => {
+  const { directorName } = req.params; // syntax object destructuring === const title = req.params.title;
+  const director = movies.find(
+    //find method to return director object
+    (movie) => movie.Director.Name === directorName
+  ).Director;
+
+  if (director) {
+    res.status(200).json(director);
+  } else {
+    res.status(400).send("There is no such director.");
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
