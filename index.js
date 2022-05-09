@@ -253,6 +253,18 @@ app.get("/movies/directors/:directorName", (req, res) => {
   }
 });
 
+//READ - returns movies by actor's name
+app.get("/movies/actors/:actorName", (req, res) => {
+  const { actorName } = req.params;
+  const movieName = movies.filter((movie) => movie.Actors.includes(actorName));
+
+  if (movieName) {
+    res.status(200).send(movieName);
+  } else {
+    res.status(400).send("There is no such actor.");
+  }
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
