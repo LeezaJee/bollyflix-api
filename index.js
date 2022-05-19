@@ -1,14 +1,15 @@
 const express = require("express");
-app = express();
-morgan = require("morgan");
 bodyParser = require("body-parser");
 uuid = require("uuid");
 
+const morgan = require("morgan");
+const app = express();
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//log requests to server
 app.use(morgan("common")); //adds morgan middleware library
-app.use(express.static("public")); //serves “documentation.html” file from the public folder
-
-
 
 //---------------------MOVIE CODE--------------------
 
@@ -164,6 +165,9 @@ app.delete("/users/:id", (req, res) => {
     res.status(400).send(`There is no such user.`);
   }
 });
+
+//serves “documentation.html” file from the public folder
+app.use(express.static("public"));
 
 //error-handling middleware function
 app.use((err, req, res, next) => {
