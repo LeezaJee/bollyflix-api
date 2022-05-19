@@ -28,105 +28,120 @@
           <tr>
             <th>Request</th>
             <th>URL</th>
-            <th>Method</th>
+            <th>HTTP Method</th>
             <th>Request Data Format</th>
-            <th>Response Data Format</th>
+            <th>RESPONSE DATA BODY FORMAT</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>get list of all movies</td>
+            <td>Get list of ALL Movies</td>
             <td>/movies</td>
             <td>GET</td>
             <td>none</td>
-            <td>JSON object with information about all movies</td>
+            <td>JSON objects containing information about all movies</td>
           </tr>
           <tr>
-            <td>get movie by title</td>
+            <td>Get movie by Title</td>
             <td>/movies/:title</td>
             <td>GET</td>
             <td>none</td>
-            <td>JSON object with information about a specific movie</td>
+            <td>JSON object containing information about a specific movie</td>
           </tr>
           <tr>
-            <td>get movies by genre</td>
-            <td>/movies/genres/:genreName</td>
+            <td>Get info about Genre</td>
+            <td>/genre/:Name</td>
             <td>GET</td>
             <td>none</td>
-            <td>JSON object with movies according to requested genre</td>
+            <td>JSON object containing information about a specific Genre</td>
           </tr>
           <tr>
-            <td>get directors info</td>
-            <td>/movies/directors/:directorName</td>
+            <td>Get info about Director</td>
+            <td>/movies/director/:directorName</td>
             <td>GET</td>
             <td>none</td>
-            <td>JSON object with information about a movie director</td>
+            <td>JSON object containing information about movie director</td>
           </tr>
           <tr>
-            <td>get movies by actor</td>
-            <td>/movies/actors/:actorName</td>
-            <td>GET</td>
-            <td>none</td>
-            <td>JSON object with movies according to actor's name</td>
-          </tr>
-          <tr>
-            <td>get all users</td>
+            <td>Get all Users</td>
             <td>/users</td>
             <td>GET</td>
             <td>none</td>
-            <td>JSON object with information about all users</td>
+            <td>JSON object containing information about all users</td>
           </tr>
           <tr>
-            <td>create a new user</td>
+            <td>Get Users by Name</td>
+            <td>/users/:Username</td>
+            <td>GET</td>
+            <td>none</td>
+            <td>JSON object containing information about a specific user</td>
+          </tr>
+          <tr>
+            <td>Create a new User</td>
             <td>/users</td>
             <td>POST</td>
             <td>
-              JSON object with info about a new user:
-              <code>{ "name": "Harry", "favoriteMovies": "Badla"}</code>
+              JSON object with information about the new user like this:
+              <code
+                >{"Username": "harry.styles", "Password": "123test", "Email":
+                "harry.styles@yahoo.com", "Birthday": "08/21/1999"}</code
+              >
             </td>
             <td>
-              JSON object with user info and ID:
+              JSON object with added info about new user including ID:
               <code
-                >{"name": "Harry", "favoriteMovies": "Badla", "Id":
-                "1da28a33-b4d2-43af-9385-6546f306f448"}</code
+                >{"Username": "harry.styles", "Password": "123test", "Email":
+                "harry.styles@yahoo.com", "Birthday": "08/21/1999",
+                "FavoriteMovies": [],"_id": "6282269d3f0918de14b8e736"}</code
               >
             </td>
           </tr>
           <tr>
-            <td>update user info</td>
-            <td>/users/:id</td>
+            <td>Update User info</td>
+            <td>/users/:Username</td>
             <td>PUT</td>
             <td>
-              JSON object containing all required fields like:
-              <code>{"name": "new Name", "favoriteMovies": "Mimi"}</code>
+              JSON Object containing required fields like:
+              <code
+                >{"Username": "harry.styles", "Password": "456test123"
+                (updated), "Email": "harry.styles@yahoo.com"}</code
+              >
             </td>
-            <td>JSON object with updated user information</td>
+            <td>JSON Object with the user information being updated</td>
           </tr>
           <tr>
-            <td>add a movie to favorites</td>
-            <td>/users/:id/:movieTitle</td>
+            <td>Add a Movie to Favorites</td>
+            <td>/users/:Username/favorites/:MovieID</td>
             <td>POST</td>
             <td>none</td>
-            <td>success that movie has been added or error message if not</td>
-          </tr>
-          <tr>
-            <td>delete movie from favorites</td>
-            <td>/users/:id/:movieTitle</td>
-            <td>DELETE</td>
-            <td>none</td>
             <td>
-              success message that movie has been removed from favorites or
-              error message
+              JSON object with updated Favorites List:
+              <code
+                >{ "_id":"62862dfdb2c4bddb72088a56", "Username":
+                "davidcohen2580","Password": "test123","Email":
+                "david2580@gmail.com","Birthday": "1988-09-09T22:00:00.000Z",
+                "FavoriteMovies":
+                ["62813502b5ece5ad027f4b88","628132dcb5ece5ad027f4b85"], "__v":
+                0}</code
+              >
             </td>
           </tr>
           <tr>
-            <td>delete a user</td>
-            <td>/users/:id</td>
+            <td>Delete Movie from Favorites</td>
+            <td>/users/:Username/favorites/:MovieID</td>
             <td>DELETE</td>
             <td>none</td>
             <td>
-              success message that user has been removed or error message if not
+              JSON object of the user like above with the favorite movie being
+              deleted from the list
             </td>
+          </tr>
+          <tr>
+            <td>Delete a user</td>
+            <td>/users/:Username</td>
+            <td>DELETE</td>
+            <td>none</td>
+            <td>Success or Error message that user has been deleted.</td>
           </tr>
         </tbody>
       </table>
