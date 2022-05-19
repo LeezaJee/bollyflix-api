@@ -4,6 +4,20 @@ uuid = require("uuid");
 
 const morgan = require("morgan");
 const app = express();
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+
+//Mongoose Models
+const Movies = Models.Movie;
+const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
+
+//connecting Mongoose to MongoDB database to perform CRUD operations
+mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
