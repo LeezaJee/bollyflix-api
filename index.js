@@ -22,6 +22,10 @@ mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let auth = require("./auth.js")(app); //app argument ensures that Express is available in your “auth.js” file too
+const passport = require("passport");
+require("./passport.js");
+
 //log requests to server
 app.use(morgan("common")); //adds morgan middleware library
 
