@@ -1,5 +1,6 @@
 //configuring Passport strategies
 const passport = require("passport"),
+  Models = require("./models.js"),
   //LocalStrategy defines basic HTTP authentication for login requests
   LocalStrategy = require("passport-local").Strategy,
   Models = require("./models.js"),
@@ -10,6 +11,7 @@ let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
+//basic HTTP Authentication
 passport.use(
   new LocalStrategy(
     {
@@ -26,9 +28,12 @@ passport.use(
 
         if (!user) {
           console.log("incorrect username");
-          return callback(null, false, {
-            message: "Incorrect username or password.",
-          });
+          return callback(null, false, { message: "Incorrect username." });
+        }
+
+        if (!user.validatePassword(password)) {
+          console.log("incorrect password");
+          return callback(null, false, { message: "Incorrect password." });
         }
 
         console.log("finished");
