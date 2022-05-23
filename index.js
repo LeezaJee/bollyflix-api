@@ -12,8 +12,14 @@ Users = Models.User;
 
 const { check, validationResult } = require("express-validator");
 
-//connecting Mongoose to MongoDB database to perform CRUD operations
-mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
+//connecting to local MongoDB to perform CRUD operations
+//mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
+// useNewUrlParser: true,
+// useUnifiedTopology: true,
+//});
+
+//connecting to remote MongoDB
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
