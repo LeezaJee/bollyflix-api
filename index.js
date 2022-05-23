@@ -1,17 +1,13 @@
 const express = require("express");
+app = express();
 bodyParser = require("body-parser");
 uuid = require("uuid");
-
-const morgan = require("morgan");
-const app = express();
-const mongoose = require("mongoose");
-const Models = require("./models.js");
+mongoose = require("mongoose");
+Models = require("./models.js");
 
 //Mongoose Models
 const Movies = Models.Movie;
-const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
+Users = Models.User;
 
 //connecting Mongoose to MongoDB database to perform CRUD operations
 mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
@@ -22,12 +18,11 @@ mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static("public")); //serves “documentation.html” file from the public folder
+
 let auth = require("./auth.js")(app); //app argument ensures that Express is available in your “auth.js” file too
 const passport = require("passport");
 require("./passport.js");
-
-//log requests to server
-app.use(morgan("common")); //adds morgan middleware library
 
 //---------------------MOVIE CODE--------------------
 
@@ -241,9 +236,6 @@ app.delete(
       });
   }
 );
-
-//serves “documentation.html” file from the public folder
-app.use(express.static("public"));
 
 //error-handling middleware function
 app.use((err, req, res, next) => {
