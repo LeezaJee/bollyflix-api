@@ -18,6 +18,12 @@ const { check, validationResult } = require("express-validator");
 // useUnifiedTopology: true,
 //});
 
+//connecting to remote MongoDB
+mongoose.connect("process.env.CONNECTION_URI", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -42,12 +48,6 @@ app.use(
     },
   })
 );
-
-//connecting to remote MongoDB
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 //use passport from external files
 let auth = require("./auth.js")(app); //app argument ensures that Express is available in your “auth.js” file too
