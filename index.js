@@ -203,13 +203,13 @@ app.put(
   passport.authenticate("jwt", { session: false }),
   //Input validation
   [
-    check("username", "Username is required").isLength({ min: 5 }),
+    check("Username", "Username is required").isLength({ min: 5 }),
     check(
-      "username",
-      "username contains non alphanumeric characters"
+      "Username",
+      "Username contains non alphanumeric characters"
     ).isAlphanumeric(),
-    check("password", "Password is required").not().isEmpty(),
-    check("email", "Email does not appear to be valid").isEmail(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
     // check validation object for errors
