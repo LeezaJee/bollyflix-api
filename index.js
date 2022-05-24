@@ -29,10 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
-let allowedOrigins = [
-  "http://localhost:2000",
-  "https://bolly-flix.herokuapp.com",
-];
+let allowedOrigins: "*";
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -156,13 +153,13 @@ app.post(
   "/users",
   //Validation logic for request
   [
-    check("username", "Username is required").isLength({ min: 5 }),
+    check("Username", "Username is required").isLength({ min: 5 }),
     check(
-      "username",
-      "username contains non alphanumeric characters"
+      "Username",
+      "Username contains non alphanumeric characters"
     ).isAlphanumeric(),
-    check("password", "Password is required").not().isEmpty(),
-    check("email", "Email does not appear to be valid").isEmail(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
     // check validation object for errors
