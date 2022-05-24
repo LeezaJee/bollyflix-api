@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
-let allowedOrigins: "*";
+let allowedOrigins: *;
 app.use(
   cors({
     origin: (origin, callback) => {
