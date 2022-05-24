@@ -3,7 +3,6 @@ const passport = require("passport"),
   Models = require("./models.js"),
   //LocalStrategy defines basic HTTP authentication for login requests
   LocalStrategy = require("passport-local").Strategy,
-  Models = require("./models.js"),
   passportJWT = require("passport-jwt");
 
 let Users = Models.User,
