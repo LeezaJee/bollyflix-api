@@ -31,7 +31,7 @@ app.use(express.static("public")); //serves “documentation.html” file from t
 
 let allowedOrigins = [
   "http://localhost:2000",
-  "https://bolly-flix.herokuapp.com",
+  "https://bolly-flix.herokuapp.com/",
 ];
 app.use(
   cors({
@@ -154,19 +154,24 @@ app.get(
 //CREATE - allows new user to register
 app.post(
   "/users",
-  //Validation logic for request
+  // Validation logic here for request
+  //you can either use a chain of methods like .not().isEmpty()
+  //which means "opposite of isEmpty" in plain english "is not empty"
+  //or use .isLength({min: 5}) which means
+  //minimum value of 5 characters are only allowed
   [
-    check("username", "Username is required").isLength({ min: 5 }),
+    check("Username", "Username is required").isLength({ min: 5 }),
     check(
-      "username",
-      "username contains non alphanumeric characters"
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
     ).isAlphanumeric(),
-    check("password", "Password is required").not().isEmpty(),
-    check("email", "Email does not appear to be valid").isEmail(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
-    // check validation object for errors
+    // check the validation object for errors
     let errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
@@ -315,6 +320,11 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-app.listen(2000, () => {
-  console.log("Your app is listening on port 2000");
+const port = process.env.PORT || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log("Listening on Port " + port);
 });
+
+//app.listen(2000, () => {
+// console.log("Your app is listening on port 2000");
+//});
