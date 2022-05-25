@@ -29,7 +29,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
-let allowedOrigins: *;
+let allowedOrigins: [
+"http://localhost:2000",
+"https://bolly-flix.herokuapp.com",
+];
 app.use(
   cors({
     origin: (origin, callback) => {
