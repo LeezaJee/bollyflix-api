@@ -211,13 +211,13 @@ app.put(
   passport.authenticate("jwt", { session: false }),
   //Input validation
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check("username", "Username is required").isLength({ min: 5 }),
     check(
-      "Username",
-      "Username contains non alphanumeric characters"
+      "username",
+      "username contains non alphanumeric characters"
     ).isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail(),
+    check("password", "Password is required").not().isEmpty(),
+    check("email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
     // check validation object for errors
@@ -236,15 +236,16 @@ app.put(
           Birthday: req.body.Birthday,
         },
       },
-      { new: true } //this line makes sure that the updated document is returned
-    )
-      .then((updatedUser) => {
-        res.json(updatedUser);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error " + err);
-      });
+      { new: true }, // this line makes sure that the updated document is returned
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Error: " + err);
+        } else {
+          res.json(updatedUser);
+        }
+      }
+    );
   }
 );
 
