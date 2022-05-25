@@ -19,7 +19,7 @@ mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
 });
 
 //connecting to remote MongoDB
-//   mongoose.connect(process.env.CONNECTION_URI, {
+//mongoose.connect(process.env.CONNECTION_URI, {
 //useNewUrlParser: true,
 //useUnifiedTopology: true,
 //});
@@ -312,7 +312,10 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-const port = process.env.PORT || 8080;
-app.listen(port, "0.0.0.0", () => {
-  console.log("Listening on Port " + port);
-});
+app.listen(2000, () => {
+  console.log("Your app is listening on port 2000");
+
+//const port = process.env.PORT || 8080;
+//app.listen(port, "0.0.0.0", () => {
+ // console.log("Listening on Port " + port);
+//});
