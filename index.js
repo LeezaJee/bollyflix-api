@@ -29,9 +29,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
-let allowedOrigins: [
-"http://localhost:2000",
-"https://bolly-flix.herokuapp.com",
+let allowedOrigins = [
+  "http://localhost:2000",
+  "https://bolly-flix.herokuapp.com",
 ];
 app.use(
   cors({
@@ -317,8 +317,4 @@ app.use((err, req, res, next) => {
 
 app.listen(2000, () => {
   console.log("Your app is listening on port 2000");
-
-//const port = process.env.PORT || 8080;
-//app.listen(port, "0.0.0.0", () => {
- // console.log("Listening on Port " + port);
-//});
+});
