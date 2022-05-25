@@ -153,13 +153,13 @@ app.post(
   "/users",
   //Validation logic for request
   [
-    check("Username", "Username is required").isLength({ min: 5 }),
+    check("username", "Username is required").isLength({ min: 5 }),
     check(
-      "Username",
-      "Username contains non alphanumeric characters"
+      "username",
+      "username contains non alphanumeric characters"
     ).isAlphanumeric(),
-    check("Password", "Password is required").not().isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail(),
+    check("password", "Password is required").not().isEmpty(),
+    check("email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
     // check validation object for errors
