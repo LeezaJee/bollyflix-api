@@ -227,13 +227,13 @@ app.put(
     }
 
     Users.findOneAndUpdate(
-      { Username: req.params.Username },
+      { username: req.params.Username },
       {
         $set: {
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday,
+          username: req.body.username,
+          password: req.body.password,
+          email: req.body.email,
+          birthday: req.body.birthday,
         },
       },
       { new: true }, // this line makes sure that the updated document is returned
