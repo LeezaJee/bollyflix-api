@@ -71,20 +71,16 @@ app.get("/documentation", (req, res) => {
 //---------------------setting endpoints for API--------------------
 
 //READ - return a list of ALL movies to the user
-app.get(
-  "/movies",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.find()
-      .then((movies) => {
-        res.status(201).json(movies);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + error);
-      });
-  }
-);
+app.get("/movies", function (req, res) {
+  Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + error);
+    });
+});
 
 //READ - returns data about a single movie by title
 app.get(
