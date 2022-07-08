@@ -53,16 +53,20 @@ app.get("/documentation", (req, res) => {
 //---------------------setting endpoints for API--------------------
 
 //READ - return a list of ALL movies to the user
-app.get("/movies", function (req, res) {
-  Movies.find()
-    .then((movies) => {
-      res.status(201).json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + error);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.json(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //READ - returns data about a single movie by title
 app.get(
@@ -125,6 +129,22 @@ app.get(
       .catch((err) => {
         console.error(err);
         res.status(500).send("Error: " + error);
+      });
+  }
+);
+
+//READ - returns a user by username
+app.get(
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOne({ username: req.params.username })
+      .then((users) => {
+        res.status(201).json(users);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
       });
   }
 );
