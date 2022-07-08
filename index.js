@@ -133,14 +133,18 @@ app.get(
   }
 );
 
-//READ - returns a user by username
+//READ user by username
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOne({ username: req.params.username })
-      .then((users) => {
-        res.status(201).json(users);
+    Users.findOne({ username: req.params.Username })
+      .then((user) => {
+        if (!user) {
+          res.status(500).send("User does not exist");
+        } else {
+          return res.status(200).json(user);
+        }
       })
       .catch((err) => {
         console.error(err);
