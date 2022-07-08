@@ -24,6 +24,13 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
+// Define allowed domains (origins) for cross-origin resource sharing (CORS)
+let allowedOrigins = [
+  "http://localhost:8080",
+  "https://bolly-flix.herokuapp.com/",
+  "http://localhost:1234",
+];
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
