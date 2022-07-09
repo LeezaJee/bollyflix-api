@@ -25,11 +25,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
 });
 
 // Define allowed domains (origins) for cross-origin resource sharing (CORS)
-let allowedOrigins = [
-  "http://localhost:8080",
-  "https://bolly-flix.herokuapp.com/",
-  "http://localhost:1234",
-];
+allowedOrigins: "*";
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -145,7 +141,7 @@ app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Users.findOne({ username: req.params.Username })
+    Users.findOne({ Username: req.params.Username })
       .then((user) => {
         if (!user) {
           res.status(500).send("User does not exist");
@@ -157,7 +153,7 @@ app.get(
         console.error(err);
         res.status(500).send("Error: " + err);
       });
-  }
+  }}}
 );
 
 //CREATE - allows new user to register
