@@ -13,19 +13,16 @@ Users = Models.User;
 const { check, validationResult } = require("express-validator");
 
 //connecting to local MongoDB to perform CRUD operations
-//mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
-//  useNewUrlParser: true,
-// useUnifiedTopology: true,
-//});
-
-//connecting to remote MongoDB
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-// Define allowed domains (origins) for cross-origin resource sharing (CORS)
-allowedOrigins: "*";
+//connecting to remote MongoDB
+//mongoose.connect(process.env.CONNECTION_URI, {
+// useNewUrlParser: true,
+//  useUnifiedTopology: true,
+//});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -136,7 +133,7 @@ app.get(
   }
 );
 
-//READ user by username
+//READ - returns a user by username
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -153,7 +150,7 @@ app.get(
         console.error(err);
         res.status(500).send("Error: " + err);
       });
-  }}}
+  }
 );
 
 //CREATE - allows new user to register
