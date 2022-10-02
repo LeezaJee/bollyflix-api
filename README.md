@@ -1,7 +1,6 @@
 # Bollyflix Movie (API)
 
-This is a Backend using Node/Express.js to create a REST API.
-MongoDB serves as the database.
+a backend using Node/Express.js to create a REST API. MongoDB serves as the database.
 
 
 ## Installation
