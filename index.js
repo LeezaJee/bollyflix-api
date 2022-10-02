@@ -12,13 +12,13 @@ Users = Models.User;
 
 const { check, validationResult } = require("express-validator");
 
-//connecting to local MongoDB to perform CRUD operations
+// DEV mode - connecting to local MongoDB to perform CRUD operations
 //mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
 // useNewUrlParser: true,
 // useUnifiedTopology: true,
 //});
 
-//connecting to remote MongoDB
+// PROUCTION mode - connecting to remote MongoDB
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -27,32 +27,40 @@ mongoose.connect(process.env.CONNECTION_URI, {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+/**
+ * @service serves static content for the app from the 'public' directory
+ */
 app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
 app.use(cors());
 
-//use passport from external files
+// requires passport module & import passport.js file
 let auth = require("./auth.js")(app); //app argument ensures that Express is available in your “auth.js” file too
 const passport = require("passport");
 require("./passport.js");
 
 //---------------------MOVIE CODE--------------------
 
-//READ - returns a plain welcome page
+/**
+ * @service sends a GET request to the API endpoint
+ * @returns a welcome message
+ */
 app.get("/", (req, res) => {
   res.send(
     "Welcome to BollyFlix! Your go-to address for good Bollywood movies!"
   );
 });
 
-//READ - returns the documentation.html file
-app.get("/documentation", (req, res) => {
-  res.sendFile("public/documentation.html", { root: __dirname });
-});
-
 //---------------------setting endpoints for API--------------------
 
-//READ - return a list of ALL movies to the user
+// GET all movies
+/**
+ * @service GET request to return a list of all movies
+ * @example Request body: Bearer token needed
+ * @returns an array of all movie objects
+ * @param movies
+ * @requires passport
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -68,7 +76,14 @@ app.get(
   }
 );
 
-//READ - returns data about a single movie by title
+// GET a single movie by title
+/**
+ * @service GET request returning data about a single movie by title (description, genre, director, image URL)
+ * @example Request body: Bearer token needed
+ * @returns movie object
+ * @param Title (of the movie)
+ * @requires passport
+ */
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -84,7 +99,14 @@ app.get(
   }
 );
 
-//READ - returns data about a genre
+// GET a movie genre by name
+/**
+ * @service GET request returning data about a genre (description) by movie title (e.g., "Fantasy")
+ * @example Request body: Bearer token needed
+ * @returns a genre object
+ * @param Name (of the genre)
+ * @requires passport
+ */
 app.get(
   "/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -100,7 +122,14 @@ app.get(
   }
 );
 
-//READ - returns data about a director
+// GET a director by name
+/**
+ * @service GET request returning data about a director by name (bio and birth year)
+ * @example Request body: Bearer token needed
+ * @returns a director object
+ * @param Name (of director)
+ * @requires passport
+ */
 app.get(
   "/director/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -117,6 +146,14 @@ app.get(
 
 //---------------------USER CODE--------------------
 
+// GET user by username
+/**
+ * @service GET request returning data on a single user by username (user object)
+ * @example Request body: Bearer token
+ * @returns a user object
+ * @param Username
+ * @requires passport
+ */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -136,7 +173,12 @@ app.get(
   }
 );
 
-//CREATE - allows new user to register
+// POST a new user (registration)
+/**
+ * @service POST request allowing new users to register whereas Username, Password & Email are required fields!
+ * @example Request body: Bearer token and JSON with user information
+ * @returns a new user object
+ */
 app.post(
   "/users",
   // Validation logic here for request
@@ -190,7 +232,14 @@ app.post(
   }
 );
 
-//UPDATE - allows users to update their user account
+// PUT to update user details
+/**
+ * @service PUT request allowing users to update their details (find by username)
+ * @example Request body: Bearer token and the user info to be updated
+ * @returns the updated user object
+ * @param Username
+ * @requires passport
+ */
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -234,7 +283,6 @@ app.put(
   }
 );
 
-//CREATE - allows users to add a movie to their list of favorites
 // GET favorite movies list from a user
 /**
  * @service GET request returning a list of the user's favorite movies
@@ -263,6 +311,15 @@ app.get(
   }
 );
 
+// POST to add a movie to a user's favorite movies list
+/**
+ * @service POST request allowing users to add a movie to their list of favorite movies
+ * @example Request body: Bearer token
+ * @returns the user object with the updated favorite movie list
+ * @param Username
+ * @param MovieID
+ * @requires passport
+ */
 app.post(
   "/users/:Username/favorites/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -287,7 +344,15 @@ app.post(
   }
 );
 
-//DELETE - allows users to remove a movie from their list of favorites
+// DELETE to remove a movie from a user's favorite movies list
+/**
+ * @service DELETE request allowing users to remove a movie from their favorite movies list
+ * @example Request body: Bearer token
+ * @returns the user object with an updated favorite movie list
+ * @param Username
+ * @param MovieID
+ * @requires passport
+ */
 app.delete(
   "/users/:Username/favorites/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -308,7 +373,14 @@ app.delete(
   }
 );
 
-//DELETE - allows existing users to deregister
+// DELETE to deregister an existing user
+/**
+ * @service DELETE request allowing existing users to deregister
+ * @example Request body: Bearer token
+ * @returns a success or error message
+ * @param Username
+ * @requires passport
+ */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
