@@ -13,10 +13,8 @@ Install dependencies for bolly-flix.movie-api with npm:
   npm install
   
 ```
-    
-## Documentation
 
-### Dependencies
+## Dependencies
 **For Development**
 - Express Library
 - Passport Library (for authentication)
@@ -28,8 +26,7 @@ Install dependencies for bolly-flix.movie-api with npm:
 MongoDB / MongoDB Atlas
 
 
-## Developement
-### Local developement
+### Local Developement
 In order to locally work on this app, you have to connect it to the localhost.
 To do so, uncomment the respective code block in `index.js` and comment out the connection to the remote databasee.
 
