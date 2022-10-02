@@ -60,6 +60,11 @@ app.get("/", (req, res) => {
   );
 });
 
+// GET documentation.html file
+app.get("/documentation", (req, res) => {
+  res.sendFile("public/documentation.html", { root: __dirname });
+});
+
 /**
  * ***********************
  * MOVIE ROUTES
