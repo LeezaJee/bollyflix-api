@@ -19,6 +19,11 @@ const { check, validationResult } = require("express-validator");
 //});
 
 // PROUCTION mode - connecting to remote MongoDB
+/**
+ * Connecting to remote Mongo DB hosted on Heroku
+ * @param {string} uri encoded key, retrieved from Heroku host
+ * @requires mongoose
+ */
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -28,37 +33,43 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /**
- * @service serves static content for the app from the 'public' directory
+ * serves static content for the app from the 'public' directory
  */
 app.use(express.static("public")); //serves “documentation.html” file from the public folder
 
 app.use(cors());
 
 // requires passport module & import passport.js file
+/**
+ * Imports auth file to use authentication
+ */
 let auth = require("./auth.js")(app); //app argument ensures that Express is available in your “auth.js” file too
 const passport = require("passport");
 require("./passport.js");
 
-//---------------------MOVIE CODE--------------------
-
 /**
- * @service sends a GET request to the API endpoint
- * @returns a welcome message
+ * ***********************
+ * ROUTING PATHS
+ * ***********************
  */
+
+// GET Welcome page
 app.get("/", (req, res) => {
   res.send(
     "Welcome to BollyFlix! Your go-to address for good Bollywood movies!"
   );
 });
 
-//---------------------setting endpoints for API--------------------
-
-// GET all movies
 /**
- * @service GET request to return a list of all movies
- * @example Request body: Bearer token needed
- * @returns an array of all movie objects
- * @param movies
+ * ***********************
+ * MOVIE ROUTES
+ * ***********************
+ */
+
+/**
+ * API request to return a list of ALL movies
+ * @function [GET]/movies
+ * @returns {array} an array of movie objects
  * @requires passport
  */
 app.get(
@@ -76,14 +87,13 @@ app.get(
   }
 );
 
-// GET a single movie by title
 /**
- * @service GET request returning data about a single movie by title (description, genre, director, image URL)
- * @example Request body: Bearer token needed
- * @returns movie object
- * @param Title (of the movie)
+ * API request to get a single movie
+ * @function [GET]/movies/:Title
+ * @param {string} Title
+ * @returns {Object} an object of a single movie
  * @requires passport
- */
+ * */
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -99,14 +109,13 @@ app.get(
   }
 );
 
-// GET a movie genre by name
 /**
- * @service GET request returning data about a genre (description) by movie title (e.g., "Fantasy")
- * @example Request body: Bearer token needed
- * @returns a genre object
- * @param Name (of the genre)
+ * API request to get information about a certain genre
+ * @function [GET]/genre/:Name
+ * @param {string} Name
+ * @returns {string} a genre description
  * @requires passport
- */
+ * */
 app.get(
   "/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -122,14 +131,13 @@ app.get(
   }
 );
 
-// GET a director by name
 /**
- * @service GET request returning data about a director by name (bio and birth year)
- * @example Request body: Bearer token needed
- * @returns a director object
- * @param Name (of director)
+ * API request to get information about a movie's director
+ * @function [GET]/director/:Name
+ * @param {string} Name
+ * @returns {object} an object with details about the director
  * @requires passport
- */
+ * */
 app.get(
   "/director/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -144,16 +152,19 @@ app.get(
   }
 );
 
-//---------------------USER CODE--------------------
-
-// GET user by username
 /**
- * @service GET request returning data on a single user by username (user object)
- * @example Request body: Bearer token
- * @returns a user object
- * @param Username
- * @requires passport
+ * ***********************
+ * USER ROUTES
+ * ***********************
  */
+
+/**
+ * API request to get the details of a specifiic user
+ * @function [GET]/users/:Username
+ * @param {string} Username
+ * @returns {Object} a User object
+ * @requires passport
+ * */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -173,12 +184,13 @@ app.get(
   }
 );
 
-// POST a new user (registration)
 /**
- * @service POST request allowing new users to register whereas Username, Password & Email are required fields!
- * @example Request body: Bearer token and JSON with user information
- * @returns a new user object
- */
+ * API request to register and validate a user
+ * @function [POST]/users
+ * @param {Object} User data from registration form
+ * @returns {Object} an object containing the Username and Token
+ * @requires bcrypt encrypted in models.js
+ * */
 app.post(
   "/users",
   // Validation logic here for request
@@ -232,14 +244,14 @@ app.post(
   }
 );
 
-// PUT to update user details
 /**
- * @service PUT request allowing users to update their details (find by username)
- * @example Request body: Bearer token and the user info to be updated
- * @returns the updated user object
- * @param Username
+ * API request to update user details
+ * @function [PUT]/users/:Username
+ * @param {string} Username
+ * @returns {Object} an object of the updated User
+ * @requires bcrypt encrypted in models.js
  * @requires passport
- */
+ * */
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -283,12 +295,11 @@ app.put(
   }
 );
 
-// GET favorite movies list from a user
 /**
- * @service GET request returning a list of the user's favorite movies
- * @example Request body: Bearer token
- * @returns an array of a specific user's favorite movies
- * @param Username
+ * API request to get the favorite movies list of a user
+ * @function [GET]/users/:Username/favorites
+ * @param {string} Username
+ * @returns {Object} an object of the favorite movie list
  * @requires passport
  */
 app.get(
@@ -311,15 +322,14 @@ app.get(
   }
 );
 
-// POST to add a movie to a user's favorite movies list
 /**
- * @service POST request allowing users to add a movie to their list of favorite movies
- * @example Request body: Bearer token
- * @returns the user object with the updated favorite movie list
- * @param Username
- * @param MovieID
+ * API request to add a movie to a user's favorite movie list
+ * @function [POST]/users/:Username/favorites/:MovieID
+ * @param {string} Username
+ * @param {string} MovieID
+ * @returns {Object} an object of thee User with the updated favorite movie list
  * @requires passport
- */
+ * */
 app.post(
   "/users/:Username/favorites/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -344,15 +354,14 @@ app.post(
   }
 );
 
-// DELETE to remove a movie from a user's favorite movies list
 /**
- * @service DELETE request allowing users to remove a movie from their favorite movies list
- * @example Request body: Bearer token
- * @returns the user object with an updated favorite movie list
- * @param Username
- * @param MovieID
+ * API request to delete a movie from a user's favorite movie list
+ * @function [DELETE]/users/:Username/favorites/:MovieID
+ * @param {string} Username
+ * @param {string} MovieID
+ * @returns {Object} an object of the updated User
  * @requires passport
- */
+ * */
 app.delete(
   "/users/:Username/favorites/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -373,14 +382,13 @@ app.delete(
   }
 );
 
-// DELETE to deregister an existing user
 /**
- * @service DELETE request allowing existing users to deregister
- * @example Request body: Bearer token
- * @returns a success or error message
- * @param Username
+ * API request to delete a user profile
+ * @function [DELETE]/users/:Username
+ * @param {string} Username
+ * @returns {string} a success or error message
  * @requires passport
- */
+ * */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),

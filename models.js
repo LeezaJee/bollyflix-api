@@ -32,7 +32,13 @@ let userSchema = mongoose.Schema({
   ],
 });
 
-//implement hash encryption
+/**
+ * Encrypting password
+ * @function hashPassword
+ * @param {string} password
+ * @returns {string} hashed password
+ * @requires bcrypt
+ * */
 userSchema.statics.hashPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
