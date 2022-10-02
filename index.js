@@ -235,6 +235,34 @@ app.put(
 );
 
 //CREATE - allows users to add a movie to their list of favorites
+// GET favorite movies list from a user
+/**
+ * @service GET request returning a list of the user's favorite movies
+ * @example Request body: Bearer token
+ * @returns an array of a specific user's favorite movies
+ * @param Username
+ * @requires passport
+ */
+app.get(
+  "/users/:Username/favorites",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOne({ Username: req.params.Username })
+      .then((user) => {
+        if (user) {
+          // If a user with the corresponding username was found, return user info
+          res.status(200).json(user.FavoriteMovies);
+        } else {
+          res.status(400).send("Could not find favorite movies for this user");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
 app.post(
   "/users/:Username/favorites/:MovieID",
   passport.authenticate("jwt", { session: false }),
