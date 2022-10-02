@@ -43,7 +43,6 @@ npx nodemon index.js
 ```
 After every save it restarts the server
 
-For more information see the ![documentation](https://www.npmjs.com/package/nodemon)
 
 ### Hosting
 - Heroku
@@ -54,7 +53,7 @@ git push heroku main
 
 ## Screenshots
 
-![App Screenshot](https://postimg.cc/4m2pC8VJ)
+<img src="public/bollyflix.png" >
 
 
 ## Demo
