@@ -53,7 +53,7 @@ git push heroku main
 
 ## Screenshots
 
-<img src="public/bollyflix.png" height="200" width="600" >
+<img src="public/bollyflix.png" height="400" width="800" >
 
 
 ## Demo
