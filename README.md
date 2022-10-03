@@ -2,6 +2,7 @@
 
 a backend using Node/Express.js to create a REST API. MongoDB serves as the database.
 
+<br>
 
 ## Installation
 
@@ -14,6 +15,8 @@ Install dependencies for bolly-flix.movie-api with npm:
   
 ```
 
+<br>
+
 ## Dependencies
 **For Development**
 - Express Library
@@ -25,6 +28,7 @@ Install dependencies for bolly-flix.movie-api with npm:
 **For Non-Relational Database**
 MongoDB / MongoDB Atlas
 
+<br> 
 
 ### Local Developement
 In order to locally work on this app, you have to connect it to the localhost.
@@ -39,6 +43,7 @@ npx nodemon index.js
 ```
 After every save it restarts the server
 
+<br>
 
 ### Hosting
 - Heroku
@@ -47,13 +52,16 @@ To sync local changes to hosted db, use
 git push heroku main
 ```
 
+<br>
+
 ## Screenshots
 
 <img src="public/bollyflix-front.png" height="400" width="800" >
 <img src="public/bollyflix.png" height="400" width="800" >
 
+<br>
 
 ## Demo
 
 The app is hosted on Netlify.
-Access it using [this]( https://bollyflix.netlify.app/) project link
+You can access it using [this]( https://bollyflix.netlify.app/) Project link.
