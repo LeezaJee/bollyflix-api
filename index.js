@@ -24,10 +24,23 @@ const { check, validationResult } = require("express-validator");
  * @param {string} uri encoded key, retrieved from Heroku host
  * @requires mongoose
  */
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+//mongoose.connect(process.env.CONNECTION_URI, {
+// useNewUrlParser: true,
+//  useUnifiedTopology: true,
+//});
+
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.CONNECTION_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+  });
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -419,11 +432,19 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
+// Async promise to make sure that it is connected to DB before listening
 const port = process.env.PORT || 8080;
+
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
-});
 
+
+connectDB().then(()=> {
+  app.listen(port, "0.0.0.0", () => {
+      console.log("Your app ist listening on port " + port);
+      // Connection to port
+})
+});
 //app.listen(2000, () => {
 // console.log("Your app is listening on port 2000");
 //});
