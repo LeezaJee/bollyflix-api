@@ -422,13 +422,8 @@ app.use((err, req, res, next) => {
 // Async promise to make sure that it is connected to DB before listening
 // allows this port to change if necessary, if nothing is found, port is set to 8080
 const port = process.env.PORT || 8080;
+app.listen(port, () => console.log("Listening on Port " + port));
 
-connectDB().then(() => {
-  app.listen(port, "0.0.0.0", () => {
-    console.log("Your app ist listening on port " + port);
-    // Connection to port
-  });
-});
 //app.listen(2000, () => {
 // console.log("Your app is listening on port 2000");
 //});
