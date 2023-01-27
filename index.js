@@ -432,3 +432,4 @@ connectDB().then(() => {
 //app.listen(2000, () => {
 // console.log("Your app is listening on port 2000");
 //});
+module.exports = app;
