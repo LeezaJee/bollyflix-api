@@ -18,16 +18,21 @@ const { check, validationResult } = require("express-validator");
 // useUnifiedTopology: true,
 //});
 
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
 // PROUCTION mode - connecting to remote MongoDB
 /**
  * Connecting to remote Mongo DB hosted on Heroku
  * @param {string} uri encoded key, retrieved from Heroku host
  * @requires mongoose
  */
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+//mongoose.connect(process.env.CONNECTION_URI, {
+// useNewUrlParser: true,
+// useUnifiedTopology: true,
+//});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
