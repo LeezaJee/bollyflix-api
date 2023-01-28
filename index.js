@@ -13,15 +13,10 @@ Users = Models.User;
 const { check, validationResult } = require("express-validator");
 
 // DEV mode - connecting to local MongoDB to perform CRUD operations
-//mongoose.connect("mongodb://localhost:27017/BollyFlixDB", {
-// useNewUrlParser: true,
+//mongoose.connect("mongodb://localhost:27017/bolly-flix", {
+//  useNewUrlParser: true,
 // useUnifiedTopology: true,
 //});
-
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 // PROUCTION mode - connecting to remote MongoDB
 /**
@@ -29,10 +24,12 @@ mongoose.connect(process.env.CONNECTION_URI, {
  * @param {string} uri encoded key, retrieved from Heroku host
  * @requires mongoose
  */
-//mongoose.connect(process.env.CONNECTION_URI, {
-// useNewUrlParser: true,
-// useUnifiedTopology: true,
-//});
+
+mongoose.set("strictQuery", false);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
