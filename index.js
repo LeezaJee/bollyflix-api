@@ -26,13 +26,10 @@ const { check, validationResult } = require("express-validator");
  */
 
 mongoose.set("strictQuery", false);
-mongoose.connect(
-  "mongodb+srv://leeza_nadeem:maleeha2020@mydatabases.szs9e.mongodb.net/bolly-flix?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
