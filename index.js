@@ -424,9 +424,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-// Async promise to make sure that it is connected to DB before listening
 // allows this port to change if necessary, if nothing is found, port is set to 8080
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("Listening on Port " + port));
 
 //app.listen(2000, () => {
