@@ -11,6 +11,7 @@ const Movies = Models.Movie;
 Users = Models.User;
 
 const { check, validationResult } = require("express-validator");
+const res = require("express/lib/response");
 
 // DEV mode - connecting to local MongoDB to perform CRUD operations
 //mongoose.connect("mongodb://localhost:27017/bolly-flix", {
