@@ -1,10 +1,10 @@
-const express = require("express");
-cors = require("cors");
-app = express();
-bodyParser = require("body-parser");
-uuid = require("uuid");
-mongoose = require("mongoose");
-Models = require("./models.js");
+const express = require("express"),
+  cors = require("cors"),
+  app = express(),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid"),
+  mongoose = require("mongoose"),
+  Models = require("./models.js");
 
 //Mongoose Models
 const Movies = Models.Movie;
@@ -26,10 +26,13 @@ const { check, validationResult } = require("express-validator");
  */
 
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  `${process.env.MONGO_URI}`,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("MongoDB is connected");
+  }
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
