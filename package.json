@@ -20,8 +20,7 @@
   },
   "homepage": "https://github.com/LeezaJee/BollyFlixApp#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -31,7 +30,6 @@
     "mongoose": "^6.4.6",
     "morgan": "^1.10.0",
     "node": "^18.13.0",
-    "now": "^21.0.1",
     "npm": "^9.4.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
