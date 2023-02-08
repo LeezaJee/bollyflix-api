@@ -21,8 +21,8 @@ const res = require("express/lib/response");
 
 // PROUCTION mode - connecting to remote MongoDB
 /**
- * Connecting to remote Mongo DB hosted on Heroku
- * @param {string} uri encoded key, retrieved from Heroku host
+ * Connecting to remote Mongo DB hosted on Render
+ * @param {string} uri encoded key, retrieved from Render host
  * @requires mongoose
  */
 
